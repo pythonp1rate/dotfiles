@@ -1,6 +1,3 @@
-# Sensitive database connections
-nvim/lua/db/connections.lua
-
 # Personal paths and machine-specific configs
 hypr/machine/
 hypr/programs/
