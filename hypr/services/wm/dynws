@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+TARGET="$1"      # 1–9
+LAPTOP_MON="eDP-1"
+EXT_MON="HDMI-A-1"
+
+FOCUSED_MON=$(hyprctl -j monitors | jq -r '.[] | select(.focused==true).name')
+
+if [[ "$FOCUSED_MON" == "$LAPTOP_MON" ]]; then
+    # Laptop → workspaces 1–9
+    hyprctl dispatch workspace "$TARGET"
+else
+    # External → workspaces 10–18
+    EXT_WS=$((TARGET + 9))
+    hyprctl dispatch workspace "$EXT_WS"
+fi

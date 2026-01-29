@@ -1,0 +1,26 @@
+# Sensitive database connections
+nvim/lua/db/connections.lua
+
+# Personal paths and machine-specific configs
+hypr/machine/
+hypr/programs/
+
+# Backup files
+*~
+*.bak
+*.swp
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+
+# Lock files (optional - you might want to keep these)
+# nvim/lazy-lock.json
+
+# Temporary files
+*.log
