@@ -1,0 +1,8 @@
+# Hyprland configs are shell-like
+*.conf linguist-language=Shell
+
+# Extensionless scripts are shell
+services/** linguist-language=Shell
+
+# Lua config
+*.lua linguist-language=Lua
