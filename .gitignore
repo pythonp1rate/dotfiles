@@ -1,5 +1,6 @@
 # Sensitive (do not push)
 nvim/lua/db/
+fish/local.fish
 
 # Personal paths and machine-specific configs
 hypr/machine/
