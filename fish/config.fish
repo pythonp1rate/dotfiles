@@ -144,3 +144,8 @@ for _line in $_keyring_out
         set -gx $_kv[1] $_kv[2]
     end
 end
+
+# Load local machine secrets (gitignored — never commit this file)
+if test -f ~/.config/fish/local.fish
+    source ~/.config/fish/local.fish
+end
