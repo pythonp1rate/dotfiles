@@ -1,0 +1,181 @@
+{
+  // Waybar layout + behavior
+  "layer": "top",
+  "position": "top",
+  "reload_style_on_change": true,
+
+  // Left: Arch, clock, pacman, colorpicker (tray moved to right for app icons)
+  "modules-left": [
+    "custom/arch",
+    "clock",
+    "custom/pacman",
+    "custom/colorpicker"
+  ],
+
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+
+  // Right: tray (Cursor, Discord), battery with %, bell
+  "modules-right": [
+    "tray",
+    "battery",
+    "custom/control-center"
+  ],
+
+  // ===========================
+  // Arch logo (far left)
+  // ===========================
+  "custom/arch": {
+    "format": "\uF303",
+    "tooltip": "Arch Linux",
+    "on-click": "xdg-open https://archlinux.org"
+  },
+
+  // ===========================
+  // Clock
+  // ===========================
+  "clock": {
+    "format": "{:%a, %b %d %I:%M %p}",
+    "interval": 1,
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "on-click": "gnome-calendar"
+  },
+
+  // ===========================
+  // Pacman Updates
+  // ===========================
+  "custom/pacman": {
+    "format": "󰅢 {}",
+    "interval": 30,
+    "exec": "checkupdates | wc -l",
+    "exec-if": "command -v checkupdates >/dev/null 2>&1",
+    "on-click": "kitty sh -c 'yay -Syu; echo Done - Press enter to exit; read'",
+    "signal": 8,
+    "tooltip": false
+  },
+
+  // ===========================
+  // Expand group (hidden)
+  // ===========================
+  "custom/expand": {
+    "format": "",       // remove the "<" arrow
+    "tooltip": false
+  },
+
+  "custom/endpoint": {
+    "format": "|",
+    "tooltip": false
+  },
+
+  "custom/control-center": {
+    "format": "\uF0F3",
+    "tooltip": "Notifications",
+    "on-click": "eww close control-center 2>/dev/null; swaync-client -t"
+  },
+
+  "custom/colorpicker": {
+    "return-type": "json",
+    "exec": "~/.config/waybar/scripts/colorpicker.sh -j",
+    "on-click": "~/.config/waybar/scripts/colorpicker.sh"
+  },
+
+  "group/expand": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 600,
+      "transition-to-left": true,
+      "click-to-reveal": false  // show everything at once
+    },
+    "modules": [
+      "cpu",
+      "memory",
+      "temperature",
+      "custom/colorpicker",
+      "custom/backlight"
+    ]
+  },
+
+  // ===========================
+  // CPU / Memory / Temp
+  // ===========================
+  "cpu": { "format": "󰻠" },
+  "memory": { "format": "" },
+  "temperature": { "format": "", "critical-threshold": 80 },
+
+  // ===========================
+  // Tray / PulseAudio
+  // ===========================
+  "tray": { "spacing": 10 },
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-muted": "󰖁",
+    "format-icons": { "default": ["󰕿","󰖀","󰕾"] },
+    "scroll-step": 1,
+    "on-click": "pavucontrol"
+  },
+
+  // ===========================
+  // Bluetooth
+  // ===========================
+  "bluetooth": {
+    "format-on": "󰂯",
+    "format-off": "BT-off",
+    "format-disabled": "󰂲",
+    "tooltip-format": "{controller_alias}\n{num_connections} connected",
+    "on-click": "blueman-manager"
+  },
+
+  // ===========================
+  // Network
+  // ===========================
+  "network": {
+    "format-wifi": "\uF1EB",
+    "format-ethernet": "\uF0AC",
+    "format-disconnected": "\uF071",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "{ifname}",
+    "on-click": "kitty nmtui"
+  },
+
+  // ===========================
+  // Battery: icon only in bar; click opens wlogout (tooltip shows % on hover)
+  // ===========================
+  "battery": {
+    "interval": 30,
+    "states": { "good": 95, "warning": 30, "critical": 20 },
+    "format": "{icon}",
+    "format-charging": "󰂄",
+    "format-plugged": "󰂄",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["󰁻","󰁼","󰁾","󰂀","󰂂","󰁹"],
+    "on-click": "wlogout",
+    "tooltip-format": "{capacity}% ({timeTo})"
+  },
+
+  // ===========================
+  // Backlight (opens Eww)
+  // ===========================
+  "custom/backlight": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "zsh -c '/home/mads/.config/wayscripts/show-brightness.sh'"
+  },
+
+  // ===========================
+  // Workspaces module definition (Circles Style)
+  // ===========================
+  "hyprland/workspaces": {
+    "active-only": false,
+    "all-outputs": true,
+    "format": "{icon}",
+    "show-special": false,
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "format-icons": {
+      "active": "",
+      "default": ""
+    }
+  }
+}

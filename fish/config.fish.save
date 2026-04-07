@@ -1,0 +1,61 @@
+fish_default_key_bindings
+
+source ~/.config/fish/user_variables.fish
+source ~/.config/fish/abbreviations.fish
+atuin init fish | source
+
+function fish_prompt
+    # Username in mauve (matches mads@archlinux)
+    set_color "#EBC0EC"
+    echo -n "mads "
+
+    # Arrow
+    set_color magenta
+    echo -n "➜ "
+
+    # Path / ~
+    set_color "#EBC0EC"
+    echo -n (prompt_pwd)
+    echo -n " "
+end
+
+# ─────────────────────────────────────────────
+# Auto-load Fastfetch config based on terminal
+# ─────────────────────────────────────────────
+if set -q KITTY_WINDOW_ID
+    fastfetch --config ~/.config/fastfetch/config_kitty.jsonc
+else if test "$TERM_PROGRAM" = "Ghostty"
+    fastfetch --config ~/.config/fastfetch/config_ghostty.jsonc
+end
+
+# ==============================
+# GitHub Copilot CLI — Fish Wrapper
+# ==============================
+
+# Shell command assistant (??)
+function wts
+    github-copilot-cli what-the-shell $argv
+end
+
+alias "??"="wts"
+
+# GitHub CLI command assistant (gh?)
+function gh\?
+    echo -n "Copilot> "
+    read -l query
+    if test -n "$query"
+        github-copilot-cli gh-assist $query
+    end
+end
+
+# Git command assistant (git?)
+function git\?
+    echo -n "Git Copilot> "
+    read -l query
+    if test -n "$query"
+        github-copilot-cli git-assist $query
+    end
+end
+
+
+alias pia25 'cd ~/.ssh; ssh -i PIA_25-AWS.pem_

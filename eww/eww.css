@@ -1,0 +1,157 @@
+.brightness-container {
+  background: #1e1e2e;
+  padding: 6px;
+  border-radius: 10px;
+}
+
+.slider-wrapper {
+  padding: 4px;
+  min-height: 20px;
+  min-width: 130px;
+}
+
+.brightness-slider {
+}
+
+/* ========== Control center ========== */
+.control-center-panel {
+  background: rgba(30, 30, 46, 0.92);
+  border-radius: 14px;
+  margin: 12px 12px 12px 0;
+  padding: 18px;
+  min-width: 320px;
+  width: 320px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.cc-header {
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cc-user-host {
+  font-size: 14px;
+  font-weight: 600;
+  color: #cdd6f4;
+}
+
+.cc-header-icons {
+  gap: 8px;
+}
+
+.cc-icon-btn {
+  font-size: 16px;
+  color: #a6adc8;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+}
+.cc-icon-btn:hover {
+  background: rgba(137, 180, 250, 0.25);
+  color: #cdd6f4;
+}
+
+/* ----- Section labels ----- */
+.cc-section {
+  margin-bottom: 16px;
+}
+
+.cc-section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a6adc8;
+  margin-bottom: 8px;
+}
+
+/* ----- Quick toggles: 2×2 grid ----- */
+.cc-toggles {
+  margin-bottom: 0;
+}
+
+.cc-toggles-grid {
+  gap: 10px;
+}
+
+.cc-toggle {
+  background: rgba(49, 50, 68, 0.7);
+  border-radius: 12px;
+  padding: 12px 14px;
+  min-width: 130px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.cc-toggle:hover {
+  background: rgba(69, 71, 90, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.cc-toggle-icon {
+  font-size: 20px;
+  color: #89b4fa;
+  margin-bottom: 4px;
+}
+
+.cc-toggle-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #cdd6f4;
+}
+
+.cc-toggle-status {
+  font-size: 11px;
+  color: #a6adc8;
+}
+
+/* ----- Notifications ----- */
+.cc-notifications-btn {
+  background: rgba(49, 50, 68, 0.6);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+.cc-notifications-btn:hover {
+  background: rgba(69, 71, 90, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.cc-notifications-icon {
+  font-size: 24px;
+  color: #89b4fa;
+  margin-bottom: 4px;
+}
+
+.cc-notifications-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cdd6f4;
+}
+
+/* ----- Volume & Brightness sliders ----- */
+.cc-sliders {
+  gap: 12px;
+}
+
+.cc-slider-row {
+  gap: 10px;
+  padding: 8px 0;
+}
+
+.cc-slider-icon {
+  font-size: 18px;
+  color: #89b4fa;
+  min-width: 28px;
+}
+
+.cc-slider-pct {
+  font-size: 12px;
+  font-weight: 600;
+  color: #cdd6f4;
+  min-width: 36px;
+}
+
+.cc-volume-slider,
+.cc-brightness-slider {
+  min-height: 8px;
+}

@@ -1,0 +1,218 @@
+/* === Fixed Elifouts Waybar theme (no Pywal required) === */
+
+/* Define color variables manually */
+@define-color background #1e1e2e;
+@define-color foreground #cdd6f4;
+@define-color color7 #cdd6f4;
+@define-color color9 #89b4fa;
+
+* {
+    font-size: 16px;
+    font-family: "JetBrainsMono Nerd Font";
+}
+
+window#waybar {
+    all: unset;
+}
+
+/* === Layout containers === */
+.modules-left,
+.modules-center,
+.modules-right {
+    padding: 4px 8px;
+    margin: 5px 4px 3px 4px;
+    border-radius: 10px;
+    background: alpha(@background, .6);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+}
+
+/* Left bar: size to content, prevent clipping of last icon (colorpicker) */
+.modules-left {
+    margin-left: 10px;
+    padding-right: 12px;
+}
+
+/* === Center / Right tweaks === */
+.modules-center {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.modules-right {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+/* === Tooltip === */
+tooltip {
+    background: @background;
+    color: @color7;
+}
+
+/* === Hover effects === */
+#clock:hover,
+#custom-pacman:hover,
+#custom-arch:hover,
+#bluetooth:hover,
+#network:hover,
+#pulseaudio:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#custom-expand:hover,
+#custom-backlight:hover,
+#custom-control-center:hover {
+    transition: all .15s ease;
+    color: @color9;
+}
+
+/* === Arch logo (far left, Nerd Font icon) === */
+#custom-arch {
+    padding: 0 8px;
+    font-size: 20px;
+    color: @color7;
+    transition: all .15s ease;
+}
+#custom-arch:hover {
+    color: @color9;
+}
+
+
+/* === Clock === */
+#clock {
+    padding: 0px 5px;
+    color: @color7;
+    transition: all .15s ease;
+}
+
+/* === Pacman === */
+#custom-pacman {
+    padding: 0px 5px;
+    color: @color7;
+    transition: all .15s ease;
+}
+
+/* === Tray / PulseAudio === */
+#tray {
+    padding: 0 5px;
+    margin: 0 3px;
+    border-radius: 8px;
+    background: alpha(@background, .6);
+    color: @color7;
+}
+
+#tray > .tray-item > image {
+    min-width: 14px;
+    min-height: 14px;
+}
+
+#tray menu {
+    background: @background;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+#tray menu * {
+    padding: 4px 6px;
+    min-height: 20px;
+    font-size: 14px;
+}
+
+#tray menu separator {
+    margin: 4px 0;
+    padding: 0;
+}
+
+/* === Expand Button (custom/expand) === */
+#custom-expand {
+    padding: 0 5px;
+    color: @color7;
+    font-size: 16px;
+    transition: .15s ease;
+}
+
+/* === Backlight Icon (custom/backlight) === */
+#custom-backlight {
+    padding: 0px 5px;
+    color: @color7;
+    transition: all .15s ease;
+}
+
+#custom-backlight:hover {
+  color: @color9;
+}
+
+#custom-control-center {
+  padding: 0 10px;
+  font-size: 18px;
+  color: @color7;
+  transition: all .15s ease;
+}
+#custom-control-center:hover {
+  color: @color9;
+}
+
+/* Colorpicker: ensure icon is not cut off */
+#custom-colorpicker {
+  padding: 0 6px 0 5px;
+  color: @color7;
+  transition: all .15s ease;
+}
+#custom-colorpicker:hover {
+  color: @color9;
+}
+
+/* Tray: enough space for Discord/Cursor etc. */
+#tray {
+  min-width: 24px;
+}
+
+/* === CPU / Memory / Temp === */
+#cpu,
+#memory,
+#temperature {
+    padding: 0px 5px;
+    color: @color7;
+    transition: all .15s ease;
+}
+
+/* === Right bar: network, bluetooth, pulseaudio, battery (active status icons) === */
+#network,
+#bluetooth,
+#pulseaudio {
+    padding: 0px 5px;
+    color: @color7;
+    transition: all .15s ease;
+}
+
+/* === Battery === */
+#battery {
+    padding: 0px 5px;
+    color: @color7;
+    transition: all .15s ease;
+}
+
+#battery.charging {
+    color: #26A65B;
+}
+
+#battery.warning:not(.charging) {
+    color: #ffbe61;
+}
+
+#battery.critical:not(.charging) {
+    color: #f53c3c;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* === Animation === */
+@keyframes blink {
+    from { opacity: 1; }
+    to { opacity: 0.3; }
+}
+

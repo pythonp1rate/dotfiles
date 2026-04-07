@@ -1,0 +1,24 @@
+(include "./widgets/brightness.yuck")
+;; control-center disabled – use swaync (transparent panel) only
+;; (include "./widgets/control-center.yuck")
+
+;; =======================================================
+;; BRIGHTNESS POLL  (automatically creates the variable)
+;; =======================================================
+(defpoll current_brightness
+  :interval "200ms"
+  "brightnessctl -d amdgpu_bl2 get | awk '{print int(($1/255)*100)}'")
+
+;; =======================================================
+;; WINDOWS
+;; =======================================================
+(defwindow brightness-popup
+  :monitor 0
+  :stacking "overlay"
+  :wm-ignore false
+  :exclusive false
+  :close-on-unfocus true
+  :geometry (geometry :anchor "top right" :x "-200px" :y "60px")
+  (brightness-window))
+
+;; control-center window removed – bell opens swaync only (no dark eww panel)

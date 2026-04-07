@@ -1,3 +1,6 @@
+# Sensitive (do not push)
+nvim/lua/db/
+
 # Personal paths and machine-specific configs
 hypr/machine/
 hypr/programs/
@@ -21,3 +24,11 @@ Thumbs.db
 
 # Temporary files
 *.log
+
+# Theme files
+hypr/theme/walls/
+fastfetch/logo.png
+hypr/theme/walls/
+fastfetch/logo.png
+fastfetch/
+fastfetch/

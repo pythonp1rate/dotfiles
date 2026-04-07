@@ -1,0 +1,116 @@
+{
+  "$schema": "/etc/xdg/swaync/configSchema.json",
+  "ignore-gtk-theme": true,
+  "layer-shell": true,
+  "cssPriority": "user",
+  "layer-shell-cover-screen": true,
+  "positionX": "right",
+  "positionY": "bottom",
+  "layer": "overlay",
+  "control-center-layer": "top",
+  "control-center-margin-top": 12,
+  "control-center-margin-bottom": 24,
+  "control-center-margin-right": 0,
+  "control-center-margin-left": 0,
+  "notification-icon-size": 100,
+  "notification-body-image-height": 100,
+  "notification-body-image-width": 200,
+  "enable-notification-window": false,
+  "timeout": 0,
+  "timeout-low": 0,
+  "timeout-critical": 0,
+  "fit-to-screen": true,
+  "control-center-width": 450,
+  "control-center-height": 700,
+  "notification-window-height": 500,
+  "keyboard-shortcuts": true,
+  "image-visibility": "when-available",
+  "transition-time": 200,
+  "hide-on-clear": false,
+  "hide-on-action": true,
+  "text-empty": "",
+  "widgets": [
+    "label",
+    "buttons-grid#header",
+    "buttons-grid#toggles",
+    "notifications",
+    "title",
+    "volume",
+    "backlight"
+  ],
+  "widget-config": {
+    "title": {
+      "text": "0 Notifications",
+      "clear-all-button": true,
+      "button-text": "Clear All"
+    },
+    "label": {
+      "max-lines": 1,
+      "text": "\uF008  mads@archlinux"
+    },
+    "buttons-grid#header": {
+      "buttons-per-row": 4,
+      "actions": [
+        {
+          "label": "\uF040",
+          "type": "normal",
+          "command": "kitty nano /home/mads/.config/swaync/config.json"
+        },
+        {
+          "label": "\uF013",
+          "type": "normal",
+          "command": "swaync-client -cs"
+        },
+        {
+          "label": "\uF021",
+          "type": "normal",
+          "command": "killall swaync 2>/dev/null; swaync &"
+        },
+        {
+          "label": "\uF011",
+          "type": "normal",
+          "command": "sh -c 'if command -v wlogout >/dev/null 2>&1; then wlogout; else notify-send \"Power\" \"Install wlogout: pacman -S wlogout\"; fi'"
+        }
+      ]
+    },
+    "buttons-grid#toggles": {
+      "buttons-per-row": 2,
+      "actions": [
+        {
+          "label": "\uF1EB WiFi",
+          "type": "toggle",
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'",
+          "update-command": "sh -c '[[ $(nmcli radio wifi 2>/dev/null) == \"enabled\" ]] && echo true || echo false'"
+        },
+        {
+          "label": "\uF293 Bluetooth",
+          "type": "toggle",
+          "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && bluetoothctl power on || bluetoothctl power off'",
+          "update-command": "bluetoothctl show 2>/dev/null | grep -q 'Powered: yes' && echo true || echo false"
+        },
+        {
+          "label": "\uF028 Audio",
+          "type": "toggle",
+          "command": "pamixer -t",
+          "update-command": "sh -c 'pamixer --get-mute 2>/dev/null | grep -q false && echo true || echo false'"
+        },
+        {
+          "label": "\uF072 Airplane Mode",
+          "type": "toggle",
+          "command": "true",
+          "update-command": "echo false"
+        }
+      ]
+    },
+    "notifications": {
+      "vexpand": true
+    },
+    "volume": {
+      "label": "\uF028"
+    },
+    "backlight": {
+      "label": "\uF185",
+      "device": "nvidia_0"
+    }
+  }
+}

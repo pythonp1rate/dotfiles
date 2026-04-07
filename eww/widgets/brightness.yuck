@@ -1,0 +1,12 @@
+(defwidget brightness-window []
+  (box
+    :class "brightness-container"
+    :orientation "horizontal"
+    (scale
+      :class "brightness-slider"
+      :orientation "horizontal"
+      :min 1
+      :max 100
+      :length 150
+      :value {current_brightness}
+      :onchange "brightnessctl -d amdgpu_bl2 set {}%")))
