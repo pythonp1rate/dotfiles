@@ -16,8 +16,10 @@
     "hyprland/workspaces"
   ],
 
-  // Right: tray (Cursor, Discord), battery with %, bell
+  // Right: WiFi (opens wifi-manager panel), tray, battery, bell
   "modules-right": [
+    "custom/wifi",
+    "pulseaudio",
     "tray",
     "battery",
     "custom/control-center"
@@ -116,26 +118,12 @@
   },
 
   // ===========================
-  // Bluetooth
+  // WiFi (opens wifi-manager panel with WiFi + Bluetooth)
   // ===========================
-  "bluetooth": {
-    "format-on": "󰂯",
-    "format-off": "BT-off",
-    "format-disabled": "󰂲",
-    "tooltip-format": "{controller_alias}\n{num_connections} connected",
-    "on-click": "blueman-manager"
-  },
-
-  // ===========================
-  // Network
-  // ===========================
-  "network": {
-    "format-wifi": "\uF1EB",
-    "format-ethernet": "\uF0AC",
-    "format-disconnected": "\uF071",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-    "tooltip-format-ethernet": "{ifname}",
-    "on-click": "kitty nmtui"
+  "custom/wifi": {
+    "format": "󰤨",
+    "tooltip": "WiFi & Bluetooth",
+    "on-click": "wifi-manager --toggle"
   },
 
   // ===========================

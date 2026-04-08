@@ -1,8 +1,0 @@
-(window brightness
-  (box :orientation "vertical" :class "brightness-widget"
-    (slider :min 0 :max 100 :value "$(cat /sys/class/backlight/intel_backlight/brightness)"
-            :step 1
-            :on-change "echo {value} | sudo tee /sys/class/backlight/intel_backlight/brightness"
-    )
-  )
-)

@@ -1,7 +1,23 @@
+:root {
+  --noti-border-color: transparent;
+  --border: none;
+  --border-radius: 10px;
+  --noti-bg: 36, 39, 58;
+  --noti-bg-alpha: 0.55;
+  --noti-bg-darker: rgb(36, 39, 58);
+  --noti-bg-hover: rgba(27, 27, 43, 0.6);
+  --noti-bg-focus: rgba(27, 27, 27, 0.5);
+  --noti-close-bg: rgba(255, 255, 255, 0.1);
+  --noti-close-bg-hover: rgba(255, 255, 255, 0.15);
+  --text-color: #cad3f5;
+  --cc-bg: rgba(0, 0, 0, 0.45);
+  --notification-shadow: none;
+}
+
 @define-color cc-bg rgba(0, 0, 0, 0.45);
-@define-color noti-border-color rgba(255, 255, 255, 0.15);
-@define-color noti-bg rgba(36, 39, 58, 0.45);
-@define-color noti-bg-darker rgba(54, 58, 79, 0.45);
+@define-color noti-border-color transparent;
+@define-color noti-bg rgba(54, 58, 79, 0.45);
+@define-color noti-bg-darker rgba(36, 39, 58, 0.45);
 @define-color noti-bg-hover rgba(27, 27, 43, 0.6);
 @define-color noti-bg-focus rgba(27, 27, 27, 0.5);
 @define-color noti-close-bg rgba(255, 255, 255, 0.1);
@@ -11,6 +27,8 @@
 /* Force transparent background on windows so only panels are semi-transparent */
 window {
   background-color: transparent;
+  outline: none;
+  box-shadow: none;
 }
 
 /* Do NOT use * { all: unset } - it breaks clicks on buttons and sliders. Only style what we need. */
@@ -34,12 +52,6 @@ window {
   font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
 }
 
-/* Header: 4 icons with spacing so they are not squished (GTK-safe margins) */
-.control-center .widget-buttons-grid#header {
-  padding: 0 0 12px 0;
-  margin: 0;
-}
-
 .widget-mpris {
   background: linear-gradient(to right, rgba(54, 58, 79, 0.45), rgba(183, 189, 248, 0.25));
   padding: 10px;
@@ -60,51 +72,116 @@ window {
   font-size: 1.1rem;
 }
 
-/* ========== HEADER: 4 icons (edit, settings, sync, power) - repo 40x40, icon 20 ========== */
-.control-center .widget-buttons-grid#header {
-  padding: 0;
+/* ========== HEADER = small; TOGGLES = big (class selectors: .header / .toggles) ========== */
+
+/* Header: edit, settings, sync, power – small 44px */
+.control-center .widget-buttons-grid.header {
+  padding: 0 0 12px 0;
   margin: 0;
 }
 
-.control-center .widget-buttons-grid#header > flowbox > flowboxchild > button {
+.control-center .widget-buttons-grid.header flowboxchild {
+  min-width: 0;
+  min-height: 0;
+}
+
+.control-center .widget-buttons-grid.header flowboxchild > button {
   margin: 0 12px;
   padding: 0 8px;
   min-height: 44px;
   min-width: 44px;
-  font-size: 20px;
+  font-size: 16px;
   font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
   background: transparent;
   border-radius: 10px;
   color: #cdd6f4;
 }
 
-.control-center .widget-buttons-grid#header > flowbox > flowboxchild > button:hover {
+.control-center .widget-buttons-grid.header flowboxchild > button:hover {
   background: rgba(110, 115, 141, 0.4);
   color: #ffffff;
 }
 
-/* ========== QUICK TOGGLES - repo 2x2, controlHeight 60, spacing ========== */
-.control-center .widget-buttons-grid#toggles {
+/* Toggles: WiFi, Bluetooth, Audio, Airplane Mode – big 96px */
+.control-center .widget-buttons-grid.toggles {
   padding: 12px 0 12px 0;
   margin: 0;
 }
 
-.control-center .widget-buttons-grid#toggles > flowbox > flowboxchild > button {
+.control-center .widget-buttons-grid.toggles flowboxchild {
+  min-width: 180px;
+  min-height: 96px;
+}
+
+.control-center .widget-buttons-grid.toggles flowboxchild > button {
   margin: 4px;
-  padding: 10px 12px;
+  padding: 0 8px;
   background: rgba(55, 60, 80, 0.55);
   border-radius: 10px;
   color: #cad3f5;
-  min-height: 60px;
+  min-height: 96px;
   font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
-  font-size: 13px;
+  font-size: 16px;
 }
 
-.control-center .widget-buttons-grid#toggles > flowbox > flowboxchild > button:hover {
+.control-center .widget-buttons-grid.toggles flowboxchild > button:hover {
   background: rgba(70, 75, 95, 0.65);
 }
 
-.control-center .widget-buttons-grid#toggles > flowbox > flowboxchild > button:checked {
+.control-center .widget-buttons-grid.toggles flowboxchild > button:checked {
+  background: rgba(137, 180, 250, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(137, 180, 250, 0.45);
+}
+
+/* Fallback: if swaync doesn't add .header/.toggles classes, target by position (label=1, header=2, toggles=3) */
+.control-center .widget-buttons-grid:nth-child(2).header,
+.control-center .widget-buttons-grid:nth-child(2) {
+  padding: 0 0 12px 0;
+  margin: 0;
+}
+.control-center .widget-buttons-grid:nth-child(2) flowboxchild {
+  min-width: 0;
+  min-height: 0;
+}
+.control-center .widget-buttons-grid:nth-child(2) flowboxchild > button {
+  margin: 0 12px;
+  padding: 0 8px;
+  min-height: 44px;
+  min-width: 44px;
+  font-size: 16px;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
+  background: transparent;
+  border-radius: 10px;
+  color: #cdd6f4;
+}
+.control-center .widget-buttons-grid:nth-child(2) flowboxchild > button:hover {
+  background: rgba(110, 115, 141, 0.4);
+  color: #ffffff;
+}
+
+.control-center .widget-buttons-grid:nth-child(3).toggles,
+.control-center .widget-buttons-grid:nth-child(3) {
+  padding: 12px 0 12px 0;
+  margin: 0;
+}
+.control-center .widget-buttons-grid:nth-child(3) flowboxchild {
+  min-width: 180px;
+  min-height: 96px;
+}
+.control-center .widget-buttons-grid:nth-child(3) flowboxchild > button {
+  margin: 4px;
+  padding: 0 8px;
+  background: rgba(55, 60, 80, 0.55);
+  border-radius: 10px;
+  color: #cad3f5;
+  min-height: 96px;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
+  font-size: 16px;
+}
+.control-center .widget-buttons-grid:nth-child(3) flowboxchild > button:hover {
+  background: rgba(70, 75, 95, 0.65);
+}
+.control-center .widget-buttons-grid:nth-child(3) flowboxchild > button:checked {
   background: rgba(137, 180, 250, 0.18);
   box-shadow: inset 0 0 0 1px rgba(137, 180, 250, 0.45);
 }
@@ -159,168 +236,24 @@ window {
   font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
 }
 
-/* Floating notification popups (toasts) - container transparent, only card semi-transparent */
-.floating-notifications,
-.floating-notifications.background {
-  background-color: transparent;
-}
-
-.floating-notifications.background .notification-row {
-  background-color: transparent;
-}
-
-.floating-notifications.background .notification-row .notification-background {
-  box-shadow:
-    0 0 8px 0 rgba(0, 0, 0, 0.8),
-    inset 0 0 0 1px rgba(54, 58, 79, 0.5);
-  border-radius: 10px;
-  margin: 18px;
-  background-color: rgba(36, 39, 58, 0.45);
-  color: #cad3f5;
-  border: 2px solid rgba(183, 189, 248, 0.5);
-  padding: 0;
-  min-height: 72px;
-}
-
+/* Floating notification popups (toasts) — transparency + slightly smaller text */
 .floating-notifications.background .notification-row .notification-background .notification {
-  min-height: 64px;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification {
-  padding: 10px 12px;
-  border-radius: 10px;
-  min-height: 56px;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification.critical {
-  box-shadow: inset 0 0 7px 0 #ed8796;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content {
-  margin: 7px;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .summary {
-  color: #cad3f5;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .time {
-  color: #a5adcb;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .body {
-  color: #cad3f5;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > * {
-  min-height: 3.4em;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action {
-  border-radius: 7px;
-  color: #cad3f5;
-  background-color: #363a4f;
-  box-shadow: inset 0 0 0 1px #494d64;
-  margin: 7px;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action:hover {
-  box-shadow: inset 0 0 0 1px #494d64;
-  background-color: #363a4f;
-  color: #cad3f5;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action:active {
-  box-shadow: inset 0 0 0 1px #494d64;
-  background-color: #7dc4e4;
-  color: #cad3f5;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .close-button {
-  margin: 7px;
-  padding: 2px;
-  border-radius: 6.3px;
-  color: #24273a;
-  background-color: #ed8796;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .close-button:hover {
-  background-color: #ee99a0;
-  color: #24273a;
-}
-
-.floating-notifications.background
-  .notification-row
-  .notification-background
-  .close-button:active {
-  background-color: #ed8796;
-  color: #24273a;
+  background-color: rgba(36, 39, 58, 0.55);
+  --font-size-summary: 14px;
+  --font-size-body: 13px;
 }
 
 /* ========== PANEL - repo width 450, fill height, spacing so content isn't squished ========== */
 .control-center {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  box-shadow: none;
   border-radius: 14px;
   margin: 10px;
   background-color: rgba(36, 39, 58, 0.5);
   color: #cad3f5;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: none;
+  outline: none;
   padding: 16px 16px 20px 16px;
-  min-height: 600px;
+  min-height: 0;
 }
 
 /* Repo: "X Notifications" row + clear (X) + bell - sits above sliders with spacing */
@@ -332,11 +265,12 @@ window {
 }
 
 .control-center .widget-title button {
-  border-radius: 7px;
+  border-radius: 5px;
   color: #cad3f5;
   background-color: #363a4f;
   box-shadow: inset 0 0 0 1px #494d64;
-  padding: 8px;
+  padding: 2px 8px;
+  font-size: 12px;
 }
 
 .control-center .widget-title button:hover {
@@ -377,156 +311,13 @@ window {
   padding: 0 4px;
 }
 
-/* Spacing between notification cards - avoid overlap */
-.control-center .notification-row {
-  margin-bottom: 4px;
-}
-
-.control-center .notification-row .notification-background {
-  border-radius: 7px;
-  color: #cad3f5;
-  background-color: rgba(54, 58, 79, 0.45);
-  box-shadow: inset 0 0 0 1px #494d64;
-  margin-top: 8px;
-  margin-bottom: 8px;
-}
-
+/* Bell window notification cards */
 .control-center .notification-row .notification-background .notification {
-  padding: 7px;
-  border-radius: 7px;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification.critical {
-  box-shadow: inset 0 0 7px 0 #ed8796;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content {
-  margin: 7px;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .summary {
-  color: #cad3f5;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .time {
-  color: #a5adcb;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  .notification-content
-  .body {
-  color: #cad3f5;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > * {
-  min-height: 3.4em;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action {
-  border-radius: 7px;
-  color: #cad3f5;
-  background-color: #494d64;
-  box-shadow: inset 0 0 0 1px #494d64;
-  margin: 7px;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action:hover {
-  box-shadow: inset 0 0 0 1px #494d64;
-  background-color: #5b6078;
-  color: #cad3f5;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .notification
-  > *:last-child
-  > *
-  .notification-action:active {
-  box-shadow: inset 0 0 0 1px #494d64;
-  background-color: #7dc4e4;
-  color: #cad3f5;
-}
-
-.control-center .notification-row .notification-background .close-button {
-  margin: 7px;
-  padding: 2px;
-  border-radius: 6.3px;
-  color: #24273a;
-  background-color: #ee99a0;
-}
-
-.control-center .notification-row .notification-background .close-button:hover {
-  background-color: #ed8796;
-  color: #24273a;
-}
-
-.control-center
-  .notification-row
-  .notification-background
-  .close-button:active {
-  background-color: #ed8796;
-  color: #24273a;
-}
-
-.control-center .notification-row .notification-background:hover {
-  box-shadow: inset 0 0 0 1px #494d64;
-  background-color: #8087a2;
-  color: #cad3f5;
-}
-
-.control-center .notification-row .notification-background:active {
-  box-shadow: inset 0 0 0 1px #494d64;
-  background-color: #7dc4e4;
-  color: #cad3f5;
-}
-
-.notification-row
-  .notification-background
-  .notification
-  .notification-default-action
-  .notification-content
-  .image {
-  /* Notification Primary Image */
-  border-radius: 10px;
-  /* Size in px */
-  margin: 4px;
-  margin-right: 20px;
+  background-color: rgba(36, 39, 58, 0.55);
+  border: 0px solid transparent;
+  box-shadow: 0 0 0 0 transparent;
+  outline: 0px solid transparent;
+  --notification-icon-size: 48px;
+  --font-size-summary: 14px;
+  --font-size-body: 13px;
 }

@@ -29,6 +29,15 @@ or: https://github.com/ryanoasis/nerd-fonts/releases
 | Toggle        | fa-volume-up       | U+F028   | Audio            |
 | Toggle        | fa-plane          | U+F072   | Airplane mode    |
 
+---
+
+## Control center – sliders and requirements
+
+- **First bar (speaker icon):** Volume. Swaync uses **libpulse** for this; you need a Pulse server (e.g. **pipewire-pulse** or PulseAudio). If the slider does nothing, install `pipewire-pulse` and ensure PipeWire is running.
+- **Second bar (sun icon):** Screen brightness (backlight). Device is set in `config.json` → `widget-config` → `backlight` → `device` (e.g. `nvidia_0`, `amdgpu_bl0`, `intel_backlight`). Check `ls /sys/class/backlight/` for your device name.
+
+Toggles (WiFi, Bluetooth, volume mute, airplane) run shell commands; volume mute uses `pamixer`, airplane mode toggles WiFi + Bluetooth together.
+
 ## To change an icon
 
 1. Open https://www.nerdfonts.com/cheat-sheet and find an icon you like (prefer **Font Awesome** for best compatibility).

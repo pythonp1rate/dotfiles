@@ -37,9 +37,13 @@ end
 # ─────────────────────────────────────────────
 # Auto-load Fastfetch config based on terminal
 # ─────────────────────────────────────────────
+# Lines to move prompt up so it sits under fastfetch (Kitty). Change 4 if prompt overlaps or still too far.
+set -g fish_fastfetch_prompt_up 3
+
 function fish_greeting
     if set -q KITTY_WINDOW_ID
         fastfetch --config ~/.config/fastfetch/config_kitty.jsonc
+        printf '\e[%sA' $fish_fastfetch_prompt_up
     else if test "$TERM_PROGRAM" = "Ghostty"
         fastfetch --config ~/.config/fastfetch/config_ghostty.jsonc
     else if test -n "$VSCODE_INJECTION" -o "$TERM_PROGRAM" = "vscode" -o "$TERM_PROGRAM" = "cursor" -o -n "$VSCODE_CLI" -o "$CHROME_DESKTOP" = "cursor.desktop" -o -n "$VSCODE_IPC_HOOK" -o -n "$VSCODE_CODE_CACHE_PATH"
@@ -132,4 +136,11 @@ set -gx LANG en_US.UTF-8
 set -gx LC_ALL en_US.UTF-8
 set -gx LC_MESSAGES en_US.UTF-8
 set -gx LANGUAGE en_US.UTF-8
-gnome-keyring-daemon --start --components=secrets | source
+# gnome-keyring: daemon prints KEY=VALUE (bash syntax); fish needs set -gx. Stderr hidden to avoid capability/unsupported messages.
+set -l _keyring_out (gnome-keyring-daemon --start --components=secrets 2>/dev/null)
+for _line in $_keyring_out
+    set -l _kv (string split -m 1 "=" -- $_line)
+    if set -q _kv[2]
+        set -gx $_kv[1] $_kv[2]
+    end
+end

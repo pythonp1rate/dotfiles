@@ -41,6 +41,7 @@ window#waybar {
 .modules-right {
     margin-left: 0;
     margin-right: 10px;
+    padding: 6px 16px;
 }
 
 /* === Tooltip === */
@@ -53,8 +54,7 @@ tooltip {
 #clock:hover,
 #custom-pacman:hover,
 #custom-arch:hover,
-#bluetooth:hover,
-#network:hover,
+#custom-wifi:hover,
 #pulseaudio:hover,
 #battery:hover,
 #cpu:hover,
@@ -144,7 +144,7 @@ tooltip {
 }
 
 #custom-control-center {
-  padding: 0 10px;
+  padding: 0 12px;
   font-size: 18px;
   color: @color7;
   transition: all .15s ease;
@@ -166,6 +166,8 @@ tooltip {
 /* Tray: enough space for Discord/Cursor etc. */
 #tray {
   min-width: 24px;
+  padding: 0 8px;
+  margin: 0 2px;
 }
 
 /* === CPU / Memory / Temp === */
@@ -177,18 +179,17 @@ tooltip {
     transition: all .15s ease;
 }
 
-/* === Right bar: network, bluetooth, pulseaudio, battery (active status icons) === */
-#network,
-#bluetooth,
+/* === Right bar: wifi, pulseaudio, battery (active status icons) === */
+#custom-wifi,
 #pulseaudio {
-    padding: 0px 5px;
+    padding: 0 10px;
     color: @color7;
     transition: all .15s ease;
 }
 
 /* === Battery === */
 #battery {
-    padding: 0px 5px;
+    padding: 0 10px;
     color: @color7;
     transition: all .15s ease;
 }
