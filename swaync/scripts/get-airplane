@@ -1,0 +1,5 @@
+#!/bin/sh
+# Airplane "on" when both wifi and bluetooth are off
+wifi_disabled="[ \"$(nmcli radio wifi 2>/dev/null)\" = \"disabled\" ]"
+if ! eval "$wifi_disabled"; then echo false; exit 0; fi
+bluetoothctl show 2>/dev/null | grep -q "Powered: yes" && echo false || echo true
