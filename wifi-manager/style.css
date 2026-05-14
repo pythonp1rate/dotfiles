@@ -1,0 +1,29 @@
+.wifi-panel {
+  background: rgba(50, 52, 70, 0.55);
+  border-radius: 14px;
+  border: none;
+}
+
+.tab-bar {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.network-row,
+.device-row {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.network-row:hover,
+.device-row:hover {
+  background: rgba(180, 190, 254, 0.06);
+}
+
+.network-row.connected,
+.device-row.connected {
+  background: rgba(166, 227, 161, 0.06);
+  border: none;
+}
