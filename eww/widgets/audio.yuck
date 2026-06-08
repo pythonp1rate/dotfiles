@@ -1,0 +1,159 @@
+;; ── State ─────────────────────────────────────────────────────────────────
+(defvar audio-view "master")
+
+;; ── Polls ──────────────────────────────────────────────────────────────────
+(defpoll master-volume
+  :interval "1s"
+  "~/.config/eww/scripts/audio.sh volume")
+
+(defpoll master-muted
+  :interval "1s"
+  "~/.config/eww/scripts/audio.sh muted")
+
+(defpoll audio-streams
+  :interval "2s"
+  :initial "[]"
+  "~/.config/eww/scripts/audio.sh streams")
+
+(defpoll audio-sinks
+  :interval "3s"
+  :initial "[]"
+  "~/.config/eww/scripts/audio.sh sinks")
+
+;; ── Window ─────────────────────────────────────────────────────────────────
+(defwindow audio-panel
+  :monitor 1
+  :stacking "overlay"
+  :wm-ignore false
+  :exclusive false
+  :close-on-unfocus true
+  :geometry (geometry :anchor "top right" :x "40px" :y "3px")
+  (audio-panel-widget))
+
+;; ── Stream row (apps view) ──────────────────────────────────────────────────
+(defwidget audio-stream-row [stream]
+  (box
+    :class "audio-stream-row"
+    :orientation "vertical"
+    :space-evenly false
+    :spacing 5
+
+    (box
+      :orientation "horizontal"
+      :spacing 8
+      :hexpand true
+
+      (label
+        :class "audio-stream-icon"
+        :text {stream.icon})
+
+      (label
+        :class "audio-stream-name"
+        :hexpand true
+        :halign "start"
+        :truncate true
+        :text {stream.name})
+
+      (button
+        :class "audio-stream-sink-btn"
+        :onclick "~/.config/eww/scripts/audio.sh cycle-sink ${stream.index} &"
+        (label :text {stream.sink})))
+
+    (scale
+      :class "audio-stream-slider"
+      :orientation "horizontal"
+      :hexpand true
+      :min 0
+      :max 100
+      :value {stream.volume}
+      :onchange "pactl set-sink-input-volume ${stream.index} {}%")))
+
+;; ── Main panel widget ───────────────────────────────────────────────────────
+(defwidget audio-panel-widget []
+  (box
+    :class "audio-panel"
+    :orientation "vertical"
+    :space-evenly false
+    :spacing 14
+
+    ;; Header: Apps | Mute | Settings
+    (box
+      :class "audio-header"
+      :orientation "horizontal"
+      :halign "center"
+      :hexpand true
+      :spacing 8
+
+      (button
+        :class {audio-view == "apps" ? "audio-icon-btn active" : "audio-icon-btn"}
+        :onclick "~/.config/eww/scripts/audio.sh toggle-view apps &"
+        (label :class "audio-icon-label" :text ""))
+
+      (button
+        :class {master-muted == "true" ? "audio-icon-btn muted" : "audio-icon-btn"}
+        :onclick "pactl set-sink-mute @DEFAULT_SINK@ toggle &"
+        (label :class "audio-icon-label" :text ""))
+
+      (button
+        :class {audio-view == "settings" ? "audio-icon-btn active" : "audio-icon-btn"}
+        :onclick "~/.config/eww/scripts/audio.sh toggle-view settings &"
+        (label :class "audio-icon-label" :text "")))
+
+    ;; Master volume slider (always visible)
+    (box
+      :class "audio-master-row"
+      :orientation "horizontal"
+      :spacing 4
+      :hexpand true
+
+      (label
+        :class "audio-vol-icon"
+        :text {master-muted == "true" ? "󰖁"
+               : master-volume < 30 ? "󰕿"
+               : master-volume < 70 ? "󰖀" : "󰕾"})
+
+      (scale
+        :class "audio-master-slider"
+        :orientation "horizontal"
+        :hexpand true
+        :min 0
+        :max 100
+        :value {master-volume}
+        :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}%")
+
+      (label
+        :class "audio-vol-pct"
+        :text "${master-volume}%"))
+
+    ;; Apps view
+    (revealer
+      :reveal {audio-view == "apps"}
+      :transition "slidedown"
+      :duration "150ms"
+      (box
+        :class "audio-section"
+        :orientation "vertical"
+        :space-evenly false
+        :spacing 8
+        (for stream in audio-streams
+          (audio-stream-row :stream stream))))
+
+    ;; Settings view
+    (revealer
+      :reveal {audio-view == "settings"}
+      :transition "slidedown"
+      :duration "150ms"
+      (box
+        :class "audio-section"
+        :orientation "vertical"
+        :space-evenly false
+        :spacing 4
+        (for sink in audio-sinks
+          (button
+            :class {sink.is_default ? "audio-sink-row default" : "audio-sink-row"}
+            :onclick "pactl set-default-sink '${sink.name}' && pactl list sink-inputs short | awk '{print $1}' | xargs -I{} pactl move-sink-input {} '${sink.name}' &"
+            (label
+              :class "audio-sink-label"
+              :halign "start"
+              :hexpand true
+              :text {sink.description})))))))
