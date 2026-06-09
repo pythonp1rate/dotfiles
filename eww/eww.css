@@ -20,7 +20,6 @@
   margin: 12px 12px 12px 0;
   padding: 18px;
   min-width: 320px;
-  width: 320px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
@@ -38,7 +37,6 @@
 }
 
 .cc-header-icons {
-  gap: 8px;
 }
 
 .cc-icon-btn {
@@ -71,7 +69,7 @@
 }
 
 .cc-toggles-grid {
-  gap: 10px;
+
 }
 
 .cc-toggle {
@@ -130,11 +128,11 @@
 
 /* ----- Volume & Brightness sliders ----- */
 .cc-sliders {
-  gap: 12px;
+
 }
 
 .cc-slider-row {
-  gap: 10px;
+
   padding: 8px 0;
 }
 
@@ -154,4 +152,174 @@
 .cc-volume-slider,
 .cc-brightness-slider {
   min-height: 8px;
+}
+
+/* ========== Audio panel ========== */
+
+/* Make the entire GTK tree transparent so only .audio-panel has a background */
+window#audio-panel,
+window#audio-panel > box,
+window#audio-panel > box > box,
+window#audio-panel > box > box > box {
+  background-color: transparent;
+  background: transparent;
+  border: none;
+}
+
+.audio-panel {
+  background: rgba(50, 52, 70, 0.55);
+  border-radius: 14px;
+  padding: 14px 6px 14px 6px;
+  min-width: 310px;
+}
+
+.audio-header {
+  margin-bottom: 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.audio-icon-btn {
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 20px;
+}
+.audio-icon-btn:hover {
+  background: rgba(180, 190, 254, 0.08);
+}
+.audio-icon-btn.active {
+  background: rgba(137, 180, 250, 0.2);
+}
+.audio-icon-btn.muted {
+  background: rgba(243, 139, 168, 0.15);
+}
+
+.audio-icon-label {
+  font-size: 18px;
+  color: #a6adc8;
+}
+.audio-icon-btn.active .audio-icon-label {
+  color: #89b4fa;
+}
+.audio-icon-btn.muted .audio-icon-label {
+  color: #f38ba8;
+}
+.audio-icon-btn:hover .audio-icon-label {
+  color: #cdd6f4;
+}
+
+.audio-master-row {
+  padding: 2px 0;
+}
+
+.audio-vol-icon {
+  font-size: 16px;
+  color: #89b4fa;
+  min-width: 16px;
+}
+
+.audio-master-slider trough {
+  min-height: 4px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.audio-master-slider trough highlight {
+  background: #89b4fa;
+  border-radius: 4px;
+}
+.audio-master-slider slider {
+  min-height: 18px;
+  min-width: 18px;
+  border-radius: 50%;
+  background: #cdd6f4;
+  border: none;
+  box-shadow: none;
+}
+
+.audio-vol-pct {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a6adc8;
+  min-width: 32px;
+}
+
+
+.audio-section {
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Stream rows */
+.audio-stream-row {
+  padding: 6px 6px;
+  border-radius: 8px;
+}
+.audio-stream-row:hover {
+  background: rgba(180, 190, 254, 0.06);
+}
+
+.audio-stream-icon {
+  font-size: 15px;
+  min-width: 18px;
+  color: #cdd6f4;
+}
+
+.audio-stream-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cdd6f4;
+}
+
+.audio-stream-sink-btn {
+  font-size: 11px;
+  color: #a6adc8;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: none;
+}
+.audio-stream-sink-btn:hover {
+  background: rgba(137, 180, 250, 0.15);
+  color: #89b4fa;
+}
+
+.audio-stream-slider trough {
+  min-height: 3px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.09);
+}
+.audio-stream-slider trough highlight {
+  background: #a6e3a1;
+  border-radius: 3px;
+}
+.audio-stream-slider slider {
+  min-height: 12px;
+  min-width: 12px;
+  border-radius: 50%;
+  background: #cdd6f4;
+  border: none;
+  box-shadow: none;
+}
+
+/* Sink rows (settings) */
+.audio-sink-row {
+  padding: 9px 12px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+}
+.audio-sink-row:hover {
+  background: rgba(180, 190, 254, 0.06);
+}
+.audio-sink-row.default {
+  background: rgba(166, 227, 161, 0.08);
+}
+.audio-sink-row.default:hover {
+  background: rgba(166, 227, 161, 0.14);
+}
+
+.audio-sink-label {
+  font-size: 13px;
+  color: #cdd6f4;
 }
