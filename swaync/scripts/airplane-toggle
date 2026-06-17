@@ -1,0 +1,10 @@
+#!/bin/sh
+WIFI=$(nmcli radio wifi 2>/dev/null)
+BT=$(bluetoothctl show 2>/dev/null | grep -c "Powered: yes")
+if [ "$WIFI" = "enabled" ] || [ "$BT" -gt 0 ]; then
+  nmcli radio wifi off
+  bluetoothctl power off
+else
+  nmcli radio wifi on
+  bluetoothctl power on
+fi
