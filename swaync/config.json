@@ -28,13 +28,17 @@
   "image-visibility": "when-available",
   "transition-time": 200,
   "hide-on-clear": false,
-  "hide-on-action": true,
+  "hide-on-action": false,
   "text-empty": "",
   "widgets": [ 
     "label",
     "buttons-grid#header",
+    "buttons-grid#quicktoggles",
+    "buttons-grid#power",
+    "buttons-grid#shutdown",
     "title",
-    "notifications"
+    "notifications",
+    "mpris"
   ],
   "widget-config": {
     "title": {
@@ -52,27 +56,106 @@
         {
           "label": "\uf040",
           "type": "normal",
-          "command": "kitty nano /home/mads/.config/swaync/config.json"
+          "command": "kitty nano /home/mads/.config/swaync/config.json",
+          "tooltip": "Edit swaync config"
         },
         {
           "label": "\uf013",
           "type": "normal",
-          "command": "xdg-open /home/mads/.config/swaync"
+          "command": "xdg-open /home/mads/.config/swaync",
+          "tooltip": "Open swaync folder"
         },
         {
           "label": "\uf021",
           "type": "normal",
-          "command": "killall swaync 2>/dev/null; swaync &"
+          "command": "killall swaync 2>/dev/null; swaync &",
+          "tooltip": "Restart swaync"
         },
         {
           "label": "\uf2f5",
           "type": "normal",
-          "command": "hyprctl dispatch exit"
+          "command": "hyprctl dispatch exit",
+          "tooltip": "Log out"
         }
       ]
     },
     "notifications": {
       "vexpand": true
+    },
+    "buttons-grid#quicktoggles": {
+      "buttons-per-row": 4,
+      "actions": [
+        {
+          "label": "\uf1eb",
+          "type": "toggle",
+          "active": false,
+          "command": "~/.config/swaync/scripts/wifi-toggle",
+          "tooltip": "Toggle WiFi"
+        },
+        {
+          "label": "\uf293",
+          "type": "toggle",
+          "active": false,
+          "command": "~/.config/swaync/scripts/bluetooth-toggle",
+          "tooltip": "Toggle Bluetooth"
+        },
+        {
+          "label": "\uf028",
+          "type": "toggle",
+          "active": false,
+          "command": "~/.config/swaync/scripts/mute-toggle",
+          "tooltip": "Toggle Mute"
+        },
+        {
+          "label": "\uf072",
+          "type": "toggle",
+          "active": false,
+          "command": "~/.config/swaync/scripts/airplane-toggle",
+          "tooltip": "Toggle Airplane Mode"
+        }
+      ]
+    },
+    "mpris": {
+      "image-size": 64,
+      "image-radius": 8
+    },
+    "buttons-grid#power": {
+      "buttons-per-row": 4,
+      "actions": [
+        {
+          "label": "\uf0f3",
+          "type": "dnd",
+          "tooltip": "Do Not Disturb"
+        },
+        {
+          "label": "\uf023",
+          "type": "normal",
+          "command": "hyprlock",
+          "tooltip": "Lock Screen"
+        },
+        {
+          "label": "\uf186",
+          "type": "normal",
+          "command": "systemctl suspend",
+          "tooltip": "Suspend"
+        },
+        {
+          "label": "\uf01e",
+          "type": "normal",
+          "command": "systemctl reboot",
+          "tooltip": "Reboot"
+        }
+      ]
+    },
+    "buttons-grid#shutdown": {
+      "buttons-per-row": 1,
+      "actions": [
+        {
+          "label": "\uf011",
+          "type": "normal",
+          "command": "systemctl poweroff"
+        }
+      ]
     }
   },
   "control-center-positionX": "right",
