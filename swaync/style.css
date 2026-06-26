@@ -53,23 +53,87 @@ window {
 }
 
 .widget-mpris {
-  background: linear-gradient(to right, rgba(54, 58, 79, 0.45), rgba(183, 189, 248, 0.25));
-  padding: 10px;
-  border-radius: 10px;
+  margin-top: 4px;
+  border-radius: 12px;
+  background: rgba(45, 50, 70, 0.55);
+  padding: 0;
 }
 
 .widget-mpris-player {
-  padding: 8px;
-  margin: 8px;
+  padding: 12px;
+  margin: 0;
+}
+
+/* Album artwork */
+.widget-mpris-album-art {
+  border-radius: 8px;
+  min-width: 64px;
+  min-height: 64px;
 }
 
 .widget-mpris-title {
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 14px;
+  color: #cdd6f4;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
 }
 
 .widget-mpris-subtitle {
-  font-size: 1.1rem;
+  font-size: 12px;
+  color: #a6adc8;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
+}
+
+/* Prev / Play-Pause / Next buttons */
+.widget-mpris-player button {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: #a6adc8;
+  font-size: 16px;
+  padding: 6px 10px;
+  min-width: 32px;
+  min-height: 32px;
+}
+
+.widget-mpris-player button:hover {
+  background: rgba(137, 180, 250, 0.1);
+  color: #cdd6f4;
+}
+
+.widget-mpris-player button:active {
+  background: rgba(137, 180, 250, 0.2);
+  color: #89b4fa;
+}
+
+/* ========== Strip GTK focus ring from ALL buttons and flowboxchildren in the panel ========== */
+.control-center .widget-buttons-grid flowboxchild,
+.control-center .widget-buttons-grid flowboxchild:focus,
+.control-center .widget-buttons-grid flowboxchild:hover,
+.control-center .widget-buttons-grid flowboxchild:focus-within {
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  -gtk-outline-radius: 0 !important;
+}
+
+.control-center .widget-buttons-grid button,
+.control-center .widget-buttons-grid button:hover,
+.control-center .widget-buttons-grid button:focus,
+.control-center .widget-buttons-grid button:active,
+.control-center .widget-buttons-grid button:checked,
+.control-center .widget-buttons-grid button:focus-visible {
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+  border-top: 0px solid transparent !important;
+  border-right: 0px solid transparent !important;
+  border-bottom: 0px solid transparent !important;
+  border-left: 0px solid transparent !important;
+  border-image: none !important;
+  -gtk-outline-radius: 0 !important;
 }
 
 /* ========== HEADER = small; TOGGLES = big (class selectors: .header / .toggles) ========== */
@@ -95,11 +159,18 @@ window {
   background: transparent;
   border-radius: 10px;
   color: #cdd6f4;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
-.control-center .widget-buttons-grid.header flowboxchild > button:hover {
+.control-center .widget-buttons-grid.header flowboxchild > button:hover,
+.control-center .widget-buttons-grid.header flowboxchild > button:focus {
   background: rgba(110, 115, 141, 0.4);
   color: #ffffff;
+  outline: none;
+  box-shadow: none;
+  border: none;
 }
 
 /* Toggles: WiFi, Bluetooth, Audio, Airplane Mode – big 96px */
@@ -159,32 +230,6 @@ window {
   color: #ffffff;
 }
 
-.control-center .widget-buttons-grid:nth-child(3).toggles,
-.control-center .widget-buttons-grid:nth-child(3) {
-  padding: 12px 0 12px 0;
-  margin: 0;
-}
-.control-center .widget-buttons-grid:nth-child(3) flowboxchild {
-  min-width: 180px;
-  min-height: 96px;
-}
-.control-center .widget-buttons-grid:nth-child(3) flowboxchild > button {
-  margin: 4px;
-  padding: 0 8px;
-  background: rgba(55, 60, 80, 0.55);
-  border-radius: 10px;
-  color: #cad3f5;
-  min-height: 96px;
-  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
-  font-size: 16px;
-}
-.control-center .widget-buttons-grid:nth-child(3) flowboxchild > button:hover {
-  background: rgba(70, 75, 95, 0.65);
-}
-.control-center .widget-buttons-grid:nth-child(3) flowboxchild > button:checked {
-  background: rgba(137, 180, 250, 0.18);
-  box-shadow: inset 0 0 0 1px rgba(137, 180, 250, 0.45);
-}
 
 /* ========== SLIDERS - repo: icon left, slider, % right (brightness_high = sun) ========== */
 .control-center .widget-volume {
@@ -236,11 +281,126 @@ window {
   font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
 }
 
+/* ========== Quick toggles row (WiFi / BT / Mute / Airplane / DND) ========== */
+.control-center .widget-buttons-grid.quicktoggles {
+  padding: 0 0 12px 0;
+  margin: 0;
+}
+
+.control-center .widget-buttons-grid.quicktoggles flowboxchild {
+  min-width: 0;
+  min-height: 0;
+}
+
+.control-center .widget-buttons-grid.quicktoggles flowboxchild > button {
+  margin: 0 10px;
+  padding: 0 8px;
+  min-height: 44px;
+  min-width: 44px;
+  font-size: 16px;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
+  background: transparent;
+  border-radius: 10px;
+  color: #cdd6f4;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.control-center .widget-buttons-grid.quicktoggles flowboxchild > button:hover,
+.control-center .widget-buttons-grid.quicktoggles flowboxchild > button:focus {
+  background: rgba(110, 115, 141, 0.4);
+  color: #ffffff;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+
+/* OFF = checked (pressed): strikethrough for WiFi, BT, Sound, Airplane */
+.control-center .widget-buttons-grid.quicktoggles flowboxchild > button:checked {
+  color: #f38ba8;
+  text-decoration: line-through;
+}
+
+/* DND on = notifications silenced — red + strikethrough */
+.control-center .widget-buttons-grid.power flowboxchild:first-child > button:checked {
+  background: rgba(243, 139, 168, 0.15);
+  color: #f38ba8;
+  text-decoration: line-through;
+}
+
 /* Floating notification popups (toasts) — transparency + slightly smaller text */
 .floating-notifications.background .notification-row .notification-background .notification {
   background-color: rgba(36, 39, 58, 0.55);
   --font-size-summary: 14px;
   --font-size-body: 13px;
+}
+
+/* ========== Power row (lock / suspend / reboot / shutdown) ========== */
+.control-center .widget-buttons-grid.power {
+  padding: 0 0 12px 0;
+  margin: 0;
+}
+
+.control-center .widget-buttons-grid.power flowboxchild {
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+}
+
+.control-center .widget-buttons-grid.power flowboxchild > button {
+  margin: 0 12px;
+  padding: 0 8px;
+  min-height: 44px;
+  min-width: 44px;
+  font-size: 16px;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
+  background: transparent;
+  border-radius: 10px;
+  color: #cdd6f4;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.control-center .widget-buttons-grid.power flowboxchild > button:hover,
+.control-center .widget-buttons-grid.power flowboxchild > button:focus {
+  background: rgba(110, 115, 141, 0.4);
+  color: #ffffff;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* ========== Shutdown row (single full-width button) ========== */
+.control-center .widget-buttons-grid.shutdown {
+  padding: 0 0 12px 0;
+  margin: 0;
+}
+
+.control-center .widget-buttons-grid.shutdown flowboxchild {
+  min-width: 0;
+  min-height: 0;
+}
+
+.control-center .widget-buttons-grid.shutdown flowboxchild > button {
+  margin: 0 12px;
+  padding: 0 8px;
+  min-height: 44px;
+  font-size: 16px;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono Nerd Font";
+  background: transparent;
+  border-radius: 10px;
+  color: #cdd6f4;
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.control-center .widget-buttons-grid.shutdown flowboxchild > button:hover {
+  background: rgba(243, 139, 168, 0.18);
+  color: #f38ba8;
 }
 
 /* ========== PANEL - repo width 450, fill height, spacing so content isn't squished ========== */
