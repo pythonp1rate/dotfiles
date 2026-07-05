@@ -22,7 +22,7 @@
 
 ;; ── Window ─────────────────────────────────────────────────────────────────
 (defwindow audio-panel
-  :monitor 1
+  :monitor 0
   :stacking "overlay"
   :wm-ignore false
   :exclusive false
