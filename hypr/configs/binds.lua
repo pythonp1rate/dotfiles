@@ -181,7 +181,7 @@ hl.bind(mainMod .. " + INSERT",      hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind(mainMod .. " + F10",         hl.dsp.exec_cmd(apps.bar_toggle))
 hl.bind(mainMod .. " + F11",         hl.dsp.exec_cmd(apps.launcher_windows))
 hl.bind(mainMod .. " + F12",         hl.dsp.exec_cmd(apps.launcher))
-hl.bind(mainMod .. " + SHIFT + ESCAPE", hl.dsp.exec_cmd("hyprctl dispatch freezeactive"))
+-- freezeactive was removed in Hyprland 0.55 (no direct replacement)
 
 -- ========================
 -- MONITOR SAFETY & MANUAL CONTROL
